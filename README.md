@@ -530,6 +530,4 @@ All tests use synthetic data and mocks — no network, no trained models, no dat
 
 ---
 
-## License
 
-[MIT](LICENSE) — © 2026 Praveen Tiwari.
