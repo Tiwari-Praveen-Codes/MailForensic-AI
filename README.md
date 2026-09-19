@@ -1,4 +1,4 @@
-# Mailforensic AI
+⁷# Mailforensic AI
 
 ![License](https://img.shields.io/badge/license-MIT-green) ![Language](https://img.shields.io/badge/language-Python-informational) ![Docker](https://img.shields.io/badge/docker-ready-2496ed) 
 
@@ -534,7 +534,7 @@ All tests use synthetic data and mocks — no network, no trained models, no dat
 
 | Resource | Link |
 |---|---|
-| 📄 Linkedin post | [View Post]((https://lnkd.in/p/d3mQnwdR)) |
+| 📄 Linkedin post |(https://lnkd.in/p/d3mQnwdR)) |
 | 🎥 Demo Video | [Watch Demo]((https://drive.google.com/file/d/1O7IgclkljpMTkjc9KnGEsphQCz9P_4kW/view?usp=drive_link)) |
 | 📊 Ad video | [View video](https://drive.google.com/file/d/1YhKCzWGrvEgz-POvHjn5YqD4ai0FFrUX/view?usp=drive_link)) |
 
