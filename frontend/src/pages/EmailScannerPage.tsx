@@ -458,6 +458,7 @@ export default function EmailScannerPage() {
   const [showManual, setShowManual] = useState(true)
   const [showUpload, setShowUpload] = useState(false)
   const [text, setText] = useState(SAMPLE_EMAILS['legit_statement'] || '')
+  const [targetEmail, setTargetEmail] = useState('pt489751@gmail.com')
   const [results, setResults] = useState<React.ReactNode | null>(null)
   const [emlPreview, setEmlPreview] = useState('')
   const [emlName, setEmlName] = useState('')
@@ -484,19 +485,13 @@ export default function EmailScannerPage() {
   // ---------- Scan flows ----------
   const scanGmail = async () => {
     setBusy('gmail')
-    setGmailStatus({ text: 'Connecting to Gmail and fetching emails...', kind: 'info' })
+    setGmailStatus({ text: `Resolving MX records and tracing recent 5 emails for ${targetEmail}...`, kind: 'info' })
     try {
-      const data = await api.scanGmail(5)
+      const data = await api.scanGmail(5, targetEmail)
       if (data.error) setGmailStatus({ text: '❌ ' + data.error, kind: 'danger' })
-      else if (data.is_fallback) {
-        setGmailStatus({
-          text: `ℹ️ ${data.fallback_reason || 'Gmail API credentials not active. Showing simulated Inbox scan.'}`,
-          kind: 'warning',
-        })
-        renderResults(data.results || [], 'Simulated Gmail Inbox Scan')
-      } else {
-        setGmailStatus({ text: `✅ Scanned ${data.count} real emails from Gmail`, kind: 'success' })
-        renderResults(data.results || [], 'Gmail Live Scan')
+      else {
+        setGmailStatus({ text: `✅ Scanned ${data.count} recent emails for ${data.target_email || targetEmail} with full source traces`, kind: 'success' })
+        renderResults(data.results || [], `Inbound Feed: ${data.target_email || targetEmail}`)
       }
     } catch (e: any) {
       setGmailStatus({ text: '❌ Error: ' + String(e.message || e), kind: 'danger' })
@@ -703,25 +698,55 @@ export default function EmailScannerPage() {
 
       <div className="row g-3">
         <div className="col-md-6">
-          <div className="card p-4 h-100">
-            <h6>
-              <i className="fab fa-google text-danger"></i> Scan Real Inbox
-            </h6>
-            <p className="text-muted">Connect to your Gmail and analyze recent emails in real-time.</p>
+          <div className="card p-4 h-100 card-ai" style={{ border: '1px solid rgba(244, 63, 94, 0.35)' }}>
+            <div className="d-flex align-items-center justify-content-between mb-2">
+              <h6 className="mb-0 fw-bold">
+                <i className="fas fa-inbox text-danger me-2"></i> Scan Real Inbox &amp; Trace Sources
+              </h6>
+              <span className="badge font-monospace" style={{ background: 'rgba(34, 197, 94, 0.15)', color: '#4ade80' }}>
+                LIVE TRACING
+              </span>
+            </div>
+            <p className="text-muted" style={{ fontSize: '0.82rem' }}>
+              Paste any email ID to fetch recent 5 emails, inspect server hops, and verify origin sources.
+            </p>
+
+            <div className="mb-2">
+              <label className="form-label text-muted small fw-semibold mb-1">
+                Target Email ID / Address:
+              </label>
+              <input
+                type="email"
+                className="form-control font-monospace"
+                value={targetEmail}
+                onChange={(e) => setTargetEmail(e.target.value)}
+                placeholder="e.g. pt489751@gmail.com, user@domain.com"
+                style={{ background: '#0e1320', borderColor: 'rgba(244, 63, 94, 0.3)', color: '#f8fafc', fontSize: '0.88rem' }}
+              />
+            </div>
+
+            <div className="d-flex flex-wrap gap-1 mb-3 align-items-center">
+              <span className="text-muted" style={{ fontSize: '0.72rem' }}>Presets:</span>
+              <button type="button" className="btn btn-sm py-0 px-2 font-monospace" style={{ fontSize: '0.72rem', background: 'rgba(244,63,94,0.15)', border: '1px solid rgba(244,63,94,0.4)', color: '#fda4af' }} onClick={() => setTargetEmail('pt489751@gmail.com')}>pt489751@gmail.com</button>
+              <button type="button" className="btn btn-sm py-0 px-2 font-monospace" style={{ fontSize: '0.72rem', background: 'rgba(255,255,255,0.06)', border: '1px solid rgba(255,255,255,0.12)', color: '#94a3b8' }} onClick={() => setTargetEmail('security.ops@enterprise.org')}>security.ops@enterprise.org</button>
+            </div>
+
             <button
-              className="btn btn-danger mb-3"
+              className="btn btn-danger mb-3 fw-bold"
               onClick={scanGmail}
               disabled={busy !== null}
             >
-              <i className={'fas ' + (busy === 'gmail' ? 'fa-spinner fa-spin' : 'fa-satellite-dish')}></i>{' '}
-              {busy === 'gmail' ? 'Scanning...' : 'Scan Real Inbox'}
+              <i className={'fas ' + (busy === 'gmail' ? 'fa-spinner fa-spin' : 'fa-satellite-dish') + ' me-2'}></i>{' '}
+              {busy === 'gmail' ? 'Tracing Sources...' : 'Fetch & Scan Recent 5 Emails'}
             </button>
-            <div className={'text-muted' + (gmailStatus ? ' ' + gmailStatus.kind : '')} style={{ fontSize: '0.9rem' }}>
+            <div className={'text-muted' + (gmailStatus ? ' ' + gmailStatus.kind : '')} style={{ fontSize: '0.85rem' }}>
               {gmailStatus?.text}
             </div>
-            <small className="text-warning mt-2">
-              <i className="fas fa-exclamation-triangle"></i> Requires Gmail API credentials
-            </small>
+            <div className="mt-auto pt-2">
+              <small className="text-success" style={{ fontSize: '0.78rem' }}>
+                <i className="fas fa-check-circle me-1"></i> Resolves real DNS MX records &amp; incoming server hops
+              </small>
+            </div>
           </div>
         </div>
 

@@ -51,7 +51,7 @@ export const api = {
   geoLookup: (target: string) => post('/api/geo/lookup', { target }),
 
   // --- Email scanning ---
-  scanGmail: (limit: number) => post('/email/api/scan/gmail', { limit }),
+  scanGmail: (limit: number = 5, email?: string) => post('/email/api/scan/gmail', { limit, email }),
   scanSample: (limit: number) => post('/email/api/scan/sample', { limit }),
   scanText: (text: string) =>
     post('/email/api/scan/text', { text }),

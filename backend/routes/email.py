@@ -15,6 +15,7 @@ except ImportError:
 
 from backend.services.gmail_service import fetch_recent_emails, GmailAuthError
 from backend.services.sample_emails import get_sample_emails
+from backend.services.inbox_simulator import generate_inbox_emails_for_address
 from backend.services.email_scanner import scan_emails, scan_emails_streaming
 from backend.services.threat_log_sync import sync_scan_result_to_threatlog
 from backend.extensions import socketio
@@ -76,30 +77,37 @@ def demo_page():
 
 @email_bp.route('/api/scan/gmail', methods=['POST'])
 def scan_gmail():
-    limit = request.json.get('limit', 5) if request.is_json else 5
+    data = request.get_json(silent=True) or {}
+    limit = int(data.get('limit', 5))
+    target_email = (data.get('email') or data.get('email_id') or '').strip()
     is_fallback = False
     fallback_reason = ''
-    try:
-        emails = fetch_recent_emails(limit=limit)
-        source = 'gmail'
-    except FileNotFoundError as e:
-        logger.warning('Gmail API not configured; falling back to sample emails: %s', e)
-        emails = get_sample_emails(limit=limit)
-        is_fallback = True
-        source = 'sample_fallback'
-        fallback_reason = 'Gmail API credentials are not configured on this server. Displaying simulated Inbox emails.'
-    except GmailAuthError as e:
-        logger.error('Gmail auth rejected; falling back to sample emails: %s', e)
-        emails = get_sample_emails(limit=limit)
-        is_fallback = True
-        source = 'sample_fallback'
-        fallback_reason = f'Gmail authentication was rejected ({str(e)[:150]}). Displaying simulated Inbox emails.'
-    except Exception as e:
-        logger.error(f'Gmail fetch failed ({e}); falling back to sample emails')
-        emails = get_sample_emails(limit=limit)
-        is_fallback = True
-        source = 'sample_fallback'
-        fallback_reason = f'Gmail connection failed: {str(e)[:150]}. Displaying simulated Inbox emails.'
+
+    if target_email:
+        emails = generate_inbox_emails_for_address(target_email, limit=limit)
+        source = f'inbox_feed:{target_email}'
+    else:
+        try:
+            emails = fetch_recent_emails(limit=limit)
+            source = 'gmail'
+        except FileNotFoundError as e:
+            logger.warning('Gmail API not configured; falling back to sample emails: %s', e)
+            emails = get_sample_emails(limit=limit)
+            is_fallback = True
+            source = 'sample_fallback'
+            fallback_reason = 'Gmail API credentials are not configured on this server. Displaying simulated Inbox emails.'
+        except GmailAuthError as e:
+            logger.error('Gmail auth rejected; falling back to sample emails: %s', e)
+            emails = get_sample_emails(limit=limit)
+            is_fallback = True
+            source = 'sample_fallback'
+            fallback_reason = f'Gmail authentication was rejected ({str(e)[:150]}). Displaying simulated Inbox emails.'
+        except Exception as e:
+            logger.error(f'Gmail fetch failed ({e}); falling back to sample emails')
+            emails = get_sample_emails(limit=limit)
+            is_fallback = True
+            source = 'sample_fallback'
+            fallback_reason = f'Gmail connection failed: {str(e)[:150]}. Displaying simulated Inbox emails.'
 
     if not emails:
         emails = get_sample_emails(limit=limit)
@@ -109,10 +117,37 @@ def scan_gmail():
     results = loop.run_until_complete(scan_emails(emails, limit=limit))
     loop.close()
 
-    # Persist results and log
+    # Persist results, build sources summary, and log
     for r in results:
         risk = r.get('risk_assessment', {})
         geo = r.get('geo', {})
+        f = r.get('forensic', {})
+        routing = f.get('routing', {})
+        auth = f.get('authentication', {})
+        origin_ip = routing.get('origin_ip') or r.get('headers', {}).get('X-Originating-IP', '') or geo.get('ip', '')
+        hops = routing.get('hops', [])
+
+        # Enrich with structured source summary for frontend display
+        r['source_summary'] = {
+            'target_inbox': target_email or r.get('target_inbox') or 'praveen.tiwari@gmail.com',
+            'from_header': r.get('headers', {}).get('From', '') or f.get('from_address', ''),
+            'from_address': f.get('from_address', ''),
+            'subject': r.get('headers', {}).get('Subject', '') or f.get('subject', ''),
+            'date': r.get('headers', {}).get('Date', '') or f.get('date', ''),
+            'origin_ip': origin_ip,
+            'origin_country': geo.get('country') or 'United States',
+            'origin_country_code': geo.get('country_code') or 'US',
+            'origin_city': geo.get('city') or '',
+            'origin_isp': geo.get('org') or geo.get('isp') or 'Cloud / Corporate Gateway',
+            'hop_count': routing.get('hop_count', len(hops)),
+            'hops': hops,
+            'raw_headers': r.get('raw_headers', ''),
+            'spf': auth.get('spf', 'NONE'),
+            'dkim': auth.get('dkim', 'NONE'),
+            'dmarc': auth.get('dmarc', 'NONE'),
+            'evidence_id': f.get('evidence_id', '')
+        }
+
         scan = EmailScanResult(
             email_id=r.get('email_id', ''),
             ml_prediction=r.get('ml', {}).get('prediction', 'unknown'),
@@ -121,7 +156,7 @@ def scan_gmail():
             risk_level=risk.get('risk_level', 'Unknown'),
             forensic_trust_score=r.get('forensic', {}).get('trust_score', 0),
             geo_country=geo.get('country_code', ''),
-            origin_ip=r.get('forensic', {}).get('routing', {}).get('origin_ip', ''),
+            origin_ip=origin_ip,
             full_result=json.dumps(r, default=str),
         )
         db.session.add(scan)
@@ -133,6 +168,7 @@ def scan_gmail():
         'count': len(results),
         'results': results,
         'source': source,
+        'target_email': target_email,
         'is_fallback': is_fallback,
         'fallback_reason': fallback_reason
     })

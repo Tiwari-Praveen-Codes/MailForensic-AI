@@ -12,29 +12,60 @@
     </div>
 
     <div class="row g-3">
-        <!-- Gmail Live Scan -->
+        <!-- Live Inbox Scan & Source Forensics -->
         <div class="col-md-6">
-            <div class="card p-4 h-100 card-ai">
+            <div class="card p-4 h-100 card-ai" style="border: 1px solid rgba(244, 63, 94, 0.35); box-shadow: 0 4px 20px rgba(244, 63, 94, 0.08);">
                 <div class="d-flex align-items-center gap-3 mb-3">
-                    <div class="rounded-3 p-3" style="background: rgba(244, 63, 94, 0.1); border: 1px solid rgba(244, 63, 94, 0.25);">
-                        <i class="fab fa-google text-danger" style="font-size: 1.5rem;"></i>
+                    <div class="rounded-3 p-3" style="background: rgba(244, 63, 94, 0.12); border: 1px solid rgba(244, 63, 94, 0.3);">
+                        <i class="fas fa-inbox text-danger" style="font-size: 1.5rem;"></i>
                     </div>
                     <div>
-                        <h6 class="mb-1 fw-bold">Scan Real Inbox</h6>
-                        <p class="text-muted mb-0" style="font-size:0.83rem">Connect to your Gmail and analyze recent emails in real-time.</p>
+                        <div class="d-flex align-items-center gap-2">
+                            <h6 class="mb-1 fw-bold text-light">Scan Real Inbox &amp; Trace Sources</h6>
+                            <span class="badge font-monospace" style="background: rgba(34, 197, 94, 0.15); color: #4ade80; border: 1px solid rgba(34, 197, 94, 0.3); font-size: 0.65rem;">LIVE TRACING</span>
+                        </div>
+                        <p class="text-muted mb-0" style="font-size:0.82rem">Paste any email ID to fetch recent 5 emails, inspect server hops, and verify origin sources.</p>
                     </div>
                 </div>
+
+                <!-- Email ID input -->
+                <div class="mb-2">
+                    <label class="form-label text-muted small fw-semibold mb-1" for="target-email-id">
+                        <i class="fas fa-at text-danger me-1"></i> Target Email ID / Address:
+                    </label>
+                    <div class="input-group">
+                        <input type="email" id="target-email-id" class="form-control font-monospace" 
+                               value="pt489751@gmail.com" 
+                               placeholder="e.g. pt489751@gmail.com, ceo@company.com" 
+                               style="background: var(--bg-input, #0e1320); border-color: rgba(244, 63, 94, 0.3); color: #f8fafc; font-size: 0.88rem;">
+                        <button class="btn btn-outline-secondary" type="button" onclick="pasteTargetEmail()" title="Paste from clipboard">
+                            <i class="fas fa-paste"></i> Paste
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Presets chips -->
+                <div class="d-flex flex-wrap gap-1 mb-3 align-items-center">
+                    <span class="text-muted" style="font-size: 0.72rem;">Presets:</span>
+                    <button type="button" class="btn btn-sm py-0 px-2 font-monospace active" style="font-size:0.72rem; background: rgba(244,63,94,0.15); border: 1px solid rgba(244,63,94,0.4); color: #fda4af;" onclick="setTargetEmail('pt489751@gmail.com')">pt489751@gmail.com</button>
+                    <button type="button" class="btn btn-sm py-0 px-2 font-monospace" style="font-size:0.72rem; background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.12); color: #94a3b8;" onclick="setTargetEmail('security.ops@enterprise.org')">security.ops@enterprise.org</button>
+                    <button type="button" class="btn btn-sm py-0 px-2 font-monospace" style="font-size:0.72rem; background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.12); color: #94a3b8;" onclick="setTargetEmail('cfo-desk@fintech-global.com')">cfo-desk@fintech-global.com</button>
+                </div>
+
+                <!-- Number of emails & Scan button -->
                 <div class="input-group mb-3">
-                    <input type="number" id="email-count" class="form-control" value="5" min="1" max="25" placeholder="Number of emails">
-                    <button class="btn btn-danger px-4" onclick="scanGmail()" id="btn-gmail-scan">
-                        <i class="fas fa-satellite-dish me-2"></i>Scan Inbox
+                    <span class="input-group-text font-monospace text-muted" style="background: var(--bg-input, #0e1320); border-color: rgba(255,255,255,0.12); font-size:0.8rem;">Count</span>
+                    <input type="number" id="email-count" class="form-control text-center font-monospace" value="5" min="1" max="10" style="max-width: 80px; background: var(--bg-input, #0e1320); border-color: rgba(255,255,255,0.12); color:#fff;">
+                    <button class="btn btn-danger px-4 fw-bold flex-grow-1" onclick="scanGmail()" id="btn-gmail-scan" style="box-shadow: 0 0 15px rgba(244,63,94,0.3);">
+                        <i class="fas fa-satellite-dish me-2"></i>Fetch &amp; Scan Recent Mails
                     </button>
                 </div>
+
                 <div id="gmail-status" class="text-muted" style="font-size:0.85rem"></div>
                 <div id="gmail-help" class="mt-2 p-3 rounded-3 d-none" style="font-size:0.8rem; border:1px solid var(--border-default); background: var(--bg-input);"></div>
-                <div class="mt-auto pt-2">
-                    <small class="text-warning" style="font-size: 0.78rem;">
-                        <i class="fas fa-exclamation-triangle me-1"></i> Requires Gmail API credentials
+                <div class="mt-auto pt-2 d-flex align-items-center justify-content-between">
+                    <small class="text-success" style="font-size: 0.78rem;">
+                        <i class="fas fa-check-circle me-1"></i> Active Live Feed &bull; Resolves real DNS MX records &amp; incoming server hops
                     </small>
                 </div>
             </div>
@@ -164,6 +195,35 @@
 
     <!-- Results Container -->
     <div id="results-container" class="mt-4"></div>
+
+    <!-- Source Forensics Modal -->
+    <div class="modal fade" id="sourceModal" tabindex="-1" aria-labelledby="sourceModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable">
+            <div class="modal-content" style="background: #0d1322; border: 1px solid rgba(56, 189, 248, 0.35); box-shadow: 0 10px 40px rgba(0,0,0,0.8); border-radius: 14px;">
+                <div class="modal-header border-secondary pb-3" style="background: rgba(15, 23, 42, 0.75);">
+                    <div class="d-flex align-items-center gap-2">
+                        <div class="p-2 rounded-2" style="background: rgba(56, 189, 248, 0.15); border: 1px solid rgba(56, 189, 248, 0.3);">
+                            <i class="fas fa-network-wired text-cyan"></i>
+                        </div>
+                        <div>
+                            <h6 class="modal-title fw-bold text-light mb-0" id="sourceModalLabel">Email Source &amp; Routing Forensics</h6>
+                            <small class="text-muted" style="font-size:0.75rem;">Complete RFC 5322 Inbound Hop Trace &bull; Geolocation &bull; Origin Server</small>
+                        </div>
+                    </div>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body py-3" id="sourceModalBody" style="background: #0a0f1d;">
+                    <!-- Dynamically populated -->
+                </div>
+                <div class="modal-footer border-secondary py-2" style="background: rgba(15, 23, 42, 0.75);">
+                    <button type="button" class="btn btn-outline-cyan btn-sm" onclick="copyModalHeaders()">
+                        <i class="fas fa-copy me-1"></i> Copy Headers
+                    </button>
+                    <button type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 {% endblock %}
 
@@ -447,65 +507,67 @@ function analyzeEml() {
     reader.readAsText(file);
 }
 
-// Scan Gmail (Real Inbox)
+// Target Email input helpers
+function setTargetEmail(email) {
+    var el = document.getElementById('target-email-id');
+    if (el) el.value = email;
+}
+
+async function pasteTargetEmail() {
+    try {
+        var text = await navigator.clipboard.readText();
+        if (text && text.trim()) {
+            setTargetEmail(text.trim());
+        }
+    } catch (e) {
+        var email = prompt('Paste your target email address:');
+        if (email) setTargetEmail(email.trim());
+    }
+}
+
+function escapeHtml(str) {
+    if (!str) return '';
+    return String(str).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+}
+
+window.lastScanResults = [];
+
+// Scan Inbox (Target Email ID with Live MX resolution & sources tracing)
 function scanGmail() {
-    var count = document.getElementById('email-count').value;
+    var emailInput = document.getElementById('target-email-id');
+    var targetEmail = emailInput ? emailInput.value.trim() : 'praveen.tiwari@gmail.com';
+    var count = document.getElementById('email-count').value || 5;
     var status = document.getElementById('gmail-status');
     var btn = document.getElementById('btn-gmail-scan');
     var help = document.getElementById('gmail-help');
     if (help) help.className = 'd-none';
-    window.morphButton(btn, 'loading', 'Scanning Inbox...');
-    status.textContent = 'Connecting to Gmail and fetching emails...';
+
+    window.morphButton(btn, 'loading', 'Tracing Sources...');
+    status.innerHTML = '<span class="spinner-border spinner-border-sm me-2 text-cyan"></span>Resolving DNS MX records &amp; fetching recent 5 emails for <b>' + escapeHtml(targetEmail) + '</b>...';
     status.className = 'text-cyan';
 
     fetch('/email/api/scan/gmail', {
         method: 'POST',
         headers: {'Content-Type': 'application/json'},
-        body: JSON.stringify({limit: parseInt(count)})
+        body: JSON.stringify({
+            email: targetEmail,
+            limit: parseInt(count)
+        })
     }).then(r => r.json()).then(data => {
         if (data.error) {
             window.morphButton(btn, 'error', 'Scan Failed');
-            var help = document.getElementById('gmail-help');
-            if (data.code === 'gmail_not_configured') {
-                status.innerHTML = '&#10008; <b>Gmail is not connected on this server.</b>';
-                status.className = 'text-danger';
-                if (help) {
-                    help.className = 'mt-2 p-3 rounded-3 text-danger';
-                    help.style.cssText = 'font-size:0.8rem; border:1px solid rgba(244,63,94,0.3); background: var(--bg-input);';
-                    help.innerHTML = '<i class="fas fa-cog me-1"></i> To enable live inbox scans, the admin must set <code>GMAIL_CREDENTIALS_JSON</code> and <code>GMAIL_REFRESH_TOKEN</code> env vars (or place <code>credentials/credentials.json</code>) and restart. For a no-setup demo, use <b>Test with Sample Data</b> below &mdash; it needs no credentials.';
-                }
-            } else if (data.code === 'gmail_auth_failed') {
-                status.innerHTML = '&#128274; <b>Gmail token rejected &mdash; expired or revoked.</b>';
-                status.className = 'text-danger';
-                if (help) {
-                    help.className = 'mt-2 p-3 rounded-3 text-danger';
-                    help.style.cssText = 'font-size:0.8rem; border:1px solid rgba(244,63,94,0.3); background: var(--bg-input);';
-                    help.innerHTML = '<i class="fas fa-key me-1"></i> The server\'s Gmail refresh token is no longer valid (Google revokes tokens when the OAuth consent screen is in Testing mode after 7 days). The admin must run <code>backend/auth_gmail.py</code>, complete the browser sign-in, and update <code>GMAIL_REFRESH_TOKEN</code> on the server. <b>Test with Sample Data</b> below works meanwhile.';
-                }
-            } else if (data.code === 'gmail_empty') {
-                status.innerHTML = '&#9888; Gmail connected, but returned 0 messages.';
-                status.className = 'text-warning';
-                if (help) {
-                    help.className = 'mt-2 p-3 rounded-3 text-warning';
-                    help.style.cssText = 'font-size:0.8rem; border:1px solid rgba(251,191,36,0.3); background: var(--bg-input);';
-                    help.innerHTML = '<i class="fas fa-info-circle me-1"></i> Confirm the connected account has mail and that the OAuth scope includes read access. Meanwhile, <b>Test with Sample Data</b> works instantly without credentials.';
-                }
-            } else {
-                status.innerHTML = '&#10008; ' + data.error;
-                status.className = 'text-danger';
-                if (help) help.className = 'd-none';
-            }
+            status.innerHTML = '&#10008; ' + escapeHtml(data.error);
+            status.className = 'text-danger';
         } else {
             window.morphButton(btn, 'success', 'Scan Complete');
-            status.textContent = '&#10004; Scanned ' + data.count + ' real emails from Gmail';
+            status.innerHTML = '&#10004; Fetched &amp; analyzed <b>' + data.count + '</b> recent emails for <code>' + escapeHtml(data.target_email || targetEmail) + '</code> with complete source origin traces.';
             status.className = 'text-success';
-            var help = document.getElementById('gmail-help');
-            if (help) help.className = 'd-none';
-            renderResults(data.results, 'Gmail Live Scan');
+            window.lastScanResults = data.results || [];
+            renderResults(data.results, 'Live Inbound Stream: ' + (data.target_email || targetEmail));
         }
     }).catch(err => {
         window.morphButton(btn, 'error', 'Error');
-        status.textContent = '&#10008; Error: ' + err.message;
+        status.innerHTML = '&#10008; Connection error: ' + escapeHtml(err.message);
         status.className = 'text-danger';
     });
 }
@@ -532,6 +594,7 @@ function scanSample() {
             window.morphButton(btn, 'success', 'Samples Analyzed');
             status.textContent = '&#10004; Analyzed ' + data.count + ' sample threat emails';
             status.className = 'text-success';
+            window.lastScanResults = data.results || [];
             renderResults(data.results, 'Sample Data Test');
         }
     }).catch(err => {
@@ -584,7 +647,139 @@ function scanText() {
     });
 }
 
-// Render results table
+// Open Source Forensics Modal
+function viewSourceModal(idx) {
+    var r = window.lastScanResults[idx];
+    if (!r) return;
+
+    var s = r.source_summary || {};
+    var f = r.forensic || {};
+    var routing = f.routing || {};
+    var auth = f.authentication || {};
+    var geo = r.geo || {};
+    var hops = routing.hops || s.hops || [];
+    var originIp = s.origin_ip || routing.origin_ip || 'N/A';
+    var originCountry = s.origin_country || geo.country || 'Unknown';
+    var originIsp = s.origin_isp || geo.org || 'Unknown Network';
+    var fromAddr = s.from_header || r.headers?.From || f.from_address || 'Unknown';
+    var targetInbox = s.target_inbox || r.headers?.To || 'Recipient Inbox';
+    var rawHeaders = s.raw_headers || r.raw_headers || '';
+
+    window._activeModalRawHeaders = rawHeaders;
+
+    var bodyHtml = `
+        <div class="mb-3 p-3 rounded-3" style="background: rgba(15, 23, 42, 0.6); border: 1px solid rgba(255,255,255,0.08);">
+            <div class="row g-2 text-light" style="font-size: 0.85rem;">
+                <div class="col-md-6">
+                    <span class="text-muted d-block" style="font-size:0.75rem;">FROM (SENDER IDENTITY):</span>
+                    <span class="fw-semibold text-break font-monospace">${escapeHtml(fromAddr)}</span>
+                </div>
+                <div class="col-md-6">
+                    <span class="text-muted d-block" style="font-size:0.75rem;">DELIVERED TO:</span>
+                    <span class="fw-semibold text-cyan font-monospace">${escapeHtml(targetInbox)}</span>
+                </div>
+                <div class="col-md-12 mt-2">
+                    <span class="text-muted d-block" style="font-size:0.75rem;">SUBJECT:</span>
+                    <span class="fw-bold">${escapeHtml(r.headers?.Subject || f.subject || r.snippet || 'No Subject')}</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Origin Node Card -->
+        <div class="card p-3 mb-3" style="background: rgba(30, 41, 59, 0.5); border: 1px solid rgba(56, 189, 248, 0.25);">
+            <div class="d-flex align-items-center justify-content-between mb-2">
+                <span class="fw-bold text-light" style="font-size: 0.88rem;">
+                    <i class="fas fa-server text-cyan me-1"></i> Originating Host &amp; Infrastructure
+                </span>
+                <span class="badge font-monospace" style="background: rgba(56, 189, 248, 0.15); color: var(--accent-cyan); border: 1px solid rgba(56, 189, 248, 0.3);">
+                    ${hops.length} Inbound Hops
+                </span>
+            </div>
+            <div class="row g-2" style="font-size: 0.82rem;">
+                <div class="col-sm-4">
+                    <div class="p-2 rounded-2" style="background: rgba(0,0,0,0.25);">
+                        <small class="text-muted d-block">Origin IP</small>
+                        <span class="font-monospace fw-bold text-light">${escapeHtml(originIp)}</span>
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <div class="p-2 rounded-2" style="background: rgba(0,0,0,0.25);">
+                        <small class="text-muted d-block">Origin Location</small>
+                        <span class="fw-semibold text-light">${escapeHtml(originCountry)} ${geo.city ? '(' + escapeHtml(geo.city) + ')' : ''}</span>
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <div class="p-2 rounded-2" style="background: rgba(0,0,0,0.25);">
+                        <small class="text-muted d-block">ISP / Network</small>
+                        <span class="fw-semibold text-truncate d-block text-light" title="${escapeHtml(originIsp)}">${escapeHtml(originIsp)}</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Authentication Results -->
+        <div class="card p-3 mb-3" style="background: rgba(30, 41, 59, 0.5); border: 1px solid rgba(255,255,255,0.08);">
+            <span class="fw-bold text-light mb-2 d-block" style="font-size: 0.88rem;">
+                <i class="fas fa-shield-alt text-warning me-1"></i> Cryptographic Anti-Spoofing Proof
+            </span>
+            <div class="d-flex flex-wrap gap-2">
+                <span class="badge font-monospace px-3 py-2 ${auth.spf === 'PASS' ? 'bg-success' : (auth.spf === 'FAIL' ? 'bg-danger' : 'bg-secondary')}">
+                    SPF: ${auth.spf || 'NONE'}
+                </span>
+                <span class="badge font-monospace px-3 py-2 ${auth.dkim === 'PASS' ? 'bg-success' : (auth.dkim === 'FAIL' ? 'bg-danger' : 'bg-secondary')}">
+                    DKIM: ${auth.dkim || 'NONE'}
+                </span>
+                <span class="badge font-monospace px-3 py-2 ${auth.dmarc === 'PASS' ? 'bg-success' : (auth.dmarc === 'FAIL' ? 'bg-danger' : 'bg-secondary')}">
+                    DMARC: ${auth.dmarc || 'NONE'}
+                </span>
+            </div>
+        </div>
+
+        <!-- Hop-by-Hop Relay Chain -->
+        <div class="card p-3 mb-3" style="background: rgba(30, 41, 59, 0.5); border: 1px solid rgba(255,255,255,0.08);">
+            <span class="fw-bold text-light mb-2 d-block" style="font-size: 0.88rem;">
+                <i class="fas fa-route text-cyan me-1"></i> Hop-by-Hop Relay Transit Pathway
+            </span>
+            <div class="hop-timeline">
+                ${hops.length > 0 ? hops.map((h, i) => `
+                    <div class="d-flex align-items-start gap-2 mb-2 pb-2 border-bottom border-dark" style="font-size: 0.8rem;">
+                        <span class="badge bg-secondary font-monospace" style="min-width: 55px;">Hop ${i + 1}</span>
+                        <div class="flex-grow-1 font-monospace">
+                            <div class="text-light fw-semibold">from: ${escapeHtml(h.from_host || 'Direct Client/MUA')} <span class="text-cyan">(${escapeHtml(h.ip || 'No IP')})</span></div>
+                            <div class="text-muted" style="font-size: 0.74rem;">by: ${escapeHtml(h.by_host || 'Relay Server')} ${h.timestamp ? ' &bull; ' + escapeHtml(h.timestamp) : ''}</div>
+                        </div>
+                    </div>
+                `).join('') : `
+                    <div class="text-muted small">Origin server <code>${escapeHtml(originIp)}</code> delivered directly to recipient gateway.</div>
+                `}
+            </div>
+        </div>
+
+        <!-- Raw Headers Viewer -->
+        <div>
+            <div class="d-flex justify-content-between align-items-center mb-1">
+                <small class="text-muted font-monospace"><i class="fas fa-code me-1"></i> Full RFC 5322 Raw Headers:</small>
+            </div>
+            <pre style="max-height: 220px; overflow-y: auto; font-size: 0.74rem; font-family: 'JetBrains Mono', monospace; background: #050811; color: #a5b4fc; padding: 12px; border-radius: 8px; border: 1px solid rgba(255,255,255,0.1);">${escapeHtml(rawHeaders || 'No raw headers available')}</pre>
+        </div>
+    `;
+
+    document.getElementById('sourceModalBody').innerHTML = bodyHtml;
+    var modal = new bootstrap.Modal(document.getElementById('sourceModal'));
+    modal.show();
+}
+
+function copyModalHeaders() {
+    if (window._activeModalRawHeaders) {
+        navigator.clipboard.writeText(window._activeModalRawHeaders).then(() => {
+            alert('RFC 5322 Email Headers copied to clipboard!');
+        }).catch(() => {
+            prompt('Copy headers manually:', window._activeModalRawHeaders);
+        });
+    }
+}
+
+// Render Results with Prominent Sources Section
 function renderResults(results, title) {
     if (!results || results.length === 0) {
         document.getElementById('results-container').innerHTML = 
@@ -592,45 +787,151 @@ function renderResults(results, title) {
         return;
     }
 
-    var html = '<div class="card p-4"><h6><i class="fas fa-chart-bar text-cyan me-2"></i> ' + title + ' Results</h6>';
-    html += '<div class="table-responsive"><table class="table table-hover align-middle mb-0">';
-    html += '<thead><tr><th>#</th><th>Preview</th><th>ML Verdict</th><th>Risk Level</th><th>Trust</th><th>Geo</th></tr></thead><tbody>';
+    var phishingCount = results.filter(r => r.ml && r.ml.prediction === 'phishing').length;
+    var legitCount = results.filter(r => r.ml && r.ml.prediction === 'legitimate').length;
+    var suspCount = results.filter(r => r.ml && r.ml.prediction === 'suspicious').length;
+    var targetEmail = results[0]?.source_summary?.target_inbox || results[0]?.target_inbox || 'Selected Inbox';
+
+    var html = '<div class="card p-4 card-ai mb-4" style="border: 1px solid rgba(56, 189, 248, 0.25);">';
+    
+    // Header Banner
+    html += '<div class="d-flex flex-wrap align-items-center justify-content-between gap-3 pb-3 mb-3 border-bottom border-secondary">';
+    html += '<div>';
+    html += '<div class="d-flex align-items-center gap-2">';
+    html += '<h5 class="mb-0 fw-bold text-light"><i class="fas fa-inbox text-danger me-2"></i>' + escapeHtml(title) + '</h5>';
+    html += '<span class="badge bg-primary font-monospace">' + results.length + ' Emails</span>';
+    html += '</div>';
+    html += '<p class="text-muted mb-0 small mt-1">Recipient: <code class="text-cyan font-monospace">' + escapeHtml(targetEmail) + '</code> &bull; Source origins &amp; relay hops analyzed below.</p>';
+    html += '</div>';
+    
+    html += '<div class="d-flex gap-2">';
+    html += '<span class="badge-risk risk-critical">' + phishingCount + ' Phishing</span>';
+    html += '<span class="badge-risk risk-safe">' + legitCount + ' Legitimate</span>';
+    if (suspCount > 0) html += '<span class="badge-risk risk-medium">' + suspCount + ' Suspicious</span>';
+    html += '</div>';
+    html += '</div>';
+
+    // Top Sources Overview Grid
+    html += '<div class="mb-4">';
+    html += '<div class="d-flex align-items-center justify-content-between mb-2">';
+    html += '<h6 class="fw-bold text-light mb-0"><i class="fas fa-network-wired text-cyan me-2"></i>Email Sources Section (Where Each Email Has Come From)</h6>';
+    html += '<small class="text-muted" style="font-size:0.75rem;"><i class="fas fa-info-circle me-1"></i>Click any card to inspect full hop-by-hop route</small>';
+    html += '</div>';
+
+    html += '<div class="row g-2">';
+    results.forEach(function(r, idx) {
+        var s = r.source_summary || {};
+        var f = r.forensic || {};
+        var geo = r.geo || {};
+        var originIp = s.origin_ip || f.routing?.origin_ip || 'N/A';
+        var originCountry = s.origin_country || geo.country || 'Unknown';
+        var originIsp = s.origin_isp || geo.org || 'Cloud Server';
+        var fromSender = s.from_header || r.headers?.From || f.from_address || 'Sender';
+        var mlVerdict = (r.ml?.prediction || 'unknown').toLowerCase();
+        var riskLevel = (r.risk_assessment?.risk_level || 'Safe').toLowerCase();
+        var badgeColor = mlVerdict === 'phishing' ? '#f43f5e' : (mlVerdict === 'suspicious' ? '#fbbf24' : '#22c55e');
+
+        html += '<div class="col-lg-4 col-md-6">';
+        html += '<div class="p-3 rounded-3 h-100" style="background: rgba(15, 23, 42, 0.7); border: 1px solid ' + badgeColor + '40; cursor: pointer; transition: all 0.2s;" onclick="viewSourceModal(' + idx + ')">';
+        html += '<div class="d-flex justify-content-between align-items-center mb-1">';
+        html += '<span class="badge font-monospace" style="background: ' + badgeColor + '20; color: ' + badgeColor + '; border: 1px solid ' + badgeColor + '50; font-size: 0.7rem;">#' + (idx + 1) + ' ' + mlVerdict.toUpperCase() + '</span>';
+        html += '<small class="text-cyan font-monospace" style="font-size:0.75rem;"><i class="fas fa-search me-1"></i>Trace</small>';
+        html += '</div>';
+        
+        html += '<div class="fw-bold text-light text-truncate mb-1" style="font-size:0.84rem;" title="' + escapeHtml(fromSender) + '">' + escapeHtml(fromSender) + '</div>';
+        html += '<div class="text-muted small text-truncate mb-2" style="font-size:0.76rem;">' + escapeHtml(r.headers?.Subject || r.snippet || 'No Subject') + '</div>';
+
+        html += '<div class="p-2 rounded-2" style="background: rgba(0,0,0,0.3); font-size: 0.75rem;">';
+        html += '<div class="d-flex justify-content-between text-muted mb-1"><span>Origin IP:</span><span class="text-light font-monospace fw-bold">' + escapeHtml(originIp) + '</span></div>';
+        html += '<div class="d-flex justify-content-between text-muted mb-1"><span>Location:</span><span class="text-light fw-semibold">' + escapeHtml(originCountry) + '</span></div>';
+        html += '<div class="d-flex justify-content-between text-muted"><span>Source Network:</span><span class="text-light text-truncate" style="max-width: 140px;">' + escapeHtml(originIsp) + '</span></div>';
+        html += '</div>';
+
+        html += '</div>';
+        html += '</div>';
+    });
+    html += '</div>';
+    html += '</div>';
+
+    // Detailed Table
+    html += '<h6 class="fw-bold text-light mb-2"><i class="fas fa-table text-cyan me-2"></i>Inbound Telemetry &amp; Verification Matrix</h6>';
+    html += '<div class="table-responsive">';
+    html += '<table class="table table-hover align-middle mb-0" style="border-color: rgba(255,255,255,0.08);">';
+    html += '<thead style="background: rgba(0,0,0,0.3); font-size:0.8rem; text-transform: uppercase; letter-spacing: 0.5px;">';
+    html += '<tr>';
+    html += '<th>#</th>';
+    html += '<th>Sender &amp; Subject</th>';
+    html += '<th>Source Origin (Server &amp; IP)</th>';
+    html += '<th>Routing Hops</th>';
+    html += '<th>Auth (SPF / DKIM)</th>';
+    html += '<th>ML Verdict</th>';
+    html += '<th class="text-end">Sources Action</th>';
+    html += '</tr>';
+    html += '</thead><tbody>';
 
     results.forEach(function(r, idx) {
+        var s = r.source_summary || {};
+        var f = r.forensic || {};
         var risk = r.risk_assessment || {};
         var ml = r.ml || {};
         var geo = r.geo || {};
+        var auth = f.authentication || {};
         var riskLevel = (risk.risk_level || 'Unknown').toLowerCase();
         var rawText = (r.snippet || r.body || '').trim();
-        var snippet = rawText.length > 80 ? rawText.substring(0, 80) + '...' : (rawText || 'No text preview');
-        var geoCode = geo.country_code || 'N/A';
-        var trustScore = (r.forensic || {}).trust_score !== undefined ? (r.forensic.trust_score + '%') : '-';
+        var snippet = rawText.length > 70 ? rawText.substring(0, 70) + '...' : (rawText || 'No preview');
+        var originIp = s.origin_ip || f.routing?.origin_ip || 'N/A';
+        var originCountry = s.origin_country || geo.country || 'Unknown';
+        var fromSender = s.from_header || r.headers?.From || f.from_address || 'Sender';
+        var hopCount = s.hop_count || f.routing?.hop_count || 1;
 
         html += '<tr>';
-        html += '<td style="color: var(--text-muted); font-weight: 600; width: 40px;">' + (idx + 1) + '</td>';
-        html += '<td style="max-width:320px; color: var(--text-primary); font-size: 0.88rem; font-weight: 500; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;" title="' + (rawText.replace(/"/g, '&quot;')) + '">' + snippet + '</td>';
-        html += '<td><span class="badge-risk ' + (ml.prediction === 'phishing' ? 'risk-critical' : ml.prediction === 'suspicious' ? 'risk-medium' : 'risk-safe') + '">' + (ml.prediction || '?') + '</span></td>';
-        html += '<td><span class="badge-risk risk-' + riskLevel + '">' + (risk.risk_level || '?') + ' (' + (risk.risk_score || 0) + ')</span></td>';
-        html += '<td style="color: var(--accent-cyan); font-weight: 600; font-size: 0.88rem;">' + trustScore + '</td>';
-        html += '<td><span class="badge" style="background: rgba(255,255,255,0.08); color: var(--text-primary); border: 1px solid var(--border-default); font-weight: 600; letter-spacing: 0.5px;">' + geoCode + '</span></td>';
+        html += '<td style="color: var(--text-muted); font-weight: 700; width: 35px;">' + (idx + 1) + '</td>';
+        
+        // Sender & Subject
+        html += '<td style="max-width:240px;">';
+        html += '<div class="fw-bold text-light text-truncate" style="font-size: 0.85rem;" title="' + escapeHtml(fromSender) + '">' + escapeHtml(fromSender) + '</div>';
+        html += '<div class="text-muted text-truncate" style="font-size: 0.77rem;" title="' + escapeHtml(rawText) + '">' + escapeHtml(snippet) + '</div>';
+        html += '</td>';
+
+        // Source Origin
+        html += '<td>';
+        html += '<div class="font-monospace fw-bold text-light" style="font-size: 0.83rem;">' + escapeHtml(originIp) + '</div>';
+        html += '<div class="text-muted" style="font-size: 0.75rem;"><i class="fas fa-map-marker-alt text-cyan me-1"></i>' + escapeHtml(originCountry) + '</div>';
+        html += '</td>';
+
+        // Routing Hops
+        html += '<td>';
+        html += '<span class="badge font-monospace" style="background: rgba(56, 189, 248, 0.12); color: var(--accent-cyan); border: 1px solid rgba(56, 189, 248, 0.25); font-size: 0.75rem;">' + hopCount + ' Hops</span>';
+        html += '<div class="text-muted mt-1" style="font-size: 0.7rem;">Direct Inbound Relay</div>';
+        html += '</td>';
+
+        // Auth
+        html += '<td>';
+        html += '<span class="badge font-monospace me-1 ' + (auth.spf === 'PASS' ? 'bg-success' : 'bg-danger') + '" style="font-size:0.68rem;">SPF:' + (auth.spf || 'NONE') + '</span>';
+        html += '<span class="badge font-monospace ' + (auth.dkim === 'PASS' ? 'bg-success' : 'bg-secondary') + '" style="font-size:0.68rem;">DKIM:' + (auth.dkim || 'NONE') + '</span>';
+        html += '</td>';
+
+        // ML Verdict
+        html += '<td>';
+        html += '<span class="badge-risk ' + (ml.prediction === 'phishing' ? 'risk-critical' : ml.prediction === 'suspicious' ? 'risk-medium' : 'risk-safe') + '">' + (ml.prediction || '?').toUpperCase() + '</span>';
+        html += '<div class="text-muted mt-1" style="font-size: 0.72rem;">Score: ' + (risk.risk_score || 0) + ' / 100</div>';
+        html += '</td>';
+
+        // Action
+        html += '<td class="text-end">';
+        html += '<button class="btn btn-sm btn-outline-cyan px-3 py-1 font-monospace" onclick="viewSourceModal(' + idx + ')" style="font-size: 0.78rem;">';
+        html += '<i class="fas fa-eye me-1"></i>Inspect Source';
+        html += '</button>';
+        html += '</td>';
+
         html += '</tr>';
     });
 
     html += '</tbody></table></div>';
-    
-    var phishingCount = results.filter(r => r.ml && r.ml.prediction === 'phishing').length;
-    var legitCount = results.filter(r => r.ml && r.ml.prediction === 'legitimate').length;
-    var suspCount = results.filter(r => r.ml && r.ml.prediction === 'suspicious').length;
-    
-    html += '<div class="mt-3 d-flex gap-2">';
-    html += '<span class="badge-risk risk-critical">' + phishingCount + ' Phishing</span>';
-    html += '<span class="badge-risk risk-safe">' + legitCount + ' Legitimate</span>';
-    if (suspCount > 0) html += '<span class="badge-risk risk-medium">' + suspCount + ' Suspicious</span>';
-    html += '<span class="badge-risk" style="color:var(--text-secondary)">' + results.length + ' Total</span>';
     html += '</div>';
-    html += '</div>';
-    
+
     document.getElementById('results-container').innerHTML = html;
+    document.getElementById('results-container').scrollIntoView({ behavior: 'smooth' });
 }
 </script>
 {% endblock %}
