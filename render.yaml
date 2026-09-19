@@ -25,5 +25,17 @@ services:
         sync: false
       - key: ABUSEIPDB_API_KEY
         sync: false
+      - key: MONAD_RPC_URL
+        value: https://rpc.testnet.monad.xyz
+      - key: MONAD_CHAIN_ID
+        value: 10143
+      - key: MONAD_EXPLORER_URL
+        value: https://testnet.monadscan.com
+      - key: MONAD_CONTRACT_ADDRESS
+        value: 0xa898e4C6FF1060cA00B4747B1d7343c86C724C2a
+      - key: MONAD_ADMIN_ADDRESS
+        value: 0xa898e4C6FF1060cA00B4747B1d7343c86C724C2a
+      - key: MONAD_PRIVATE_KEY
+        sync: false
     healthCheckPath: /
     autoDeploy: true
