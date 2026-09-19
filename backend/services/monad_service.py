@@ -65,7 +65,8 @@ class MonadBlockchainService:
         self.rpc_url = DEFAULT_MONAD_RPC
         self.chain_id = MONAD_CHAIN_ID
         self.explorer_url = MONAD_EXPLORER_URL
-        self.contract_address = os.getenv("MONAD_CONTRACT_ADDRESS", "")
+        self.contract_address = os.getenv("MONAD_CONTRACT_ADDRESS", "0xa898e4C6FF1060cA00B4747B1d7343c86C724C2a")
+        self.admin_address = os.getenv("MONAD_ADMIN_ADDRESS", "0xa898e4C6FF1060cA00B4747B1d7343c86C724C2a")
         self.private_key = os.getenv("MONAD_PRIVATE_KEY", "")
         self._w3 = None
         self._contract = None
