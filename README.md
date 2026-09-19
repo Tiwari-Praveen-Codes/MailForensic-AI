@@ -5,7 +5,11 @@
 
 ## Overview
 
-AI-powered email threat detection, geolocation and forensic intelligence platform — SIH 2026, AICTE problem statement
+**Mailforensic AI**, developed by **Praveen Tiwari**, is an enterprise-grade cybersecurity and digital forensics platform designed to detect and neutralize advanced email threats—including AI-crafted phishing, Business Email Compromise (BEC), spoofing, and malicious QR codes (quishing).
+
+The platform features a multi-model ML ensemble combining XGBoost, LightGBM, and DistilBERT (achieving 98.9% accuracy), trained on 34,000+ emails. It pairs predictive AI with deep header forensics (SPF, DKIM, DMARC), hop-by-hop IP geolocation, and real-time threat intelligence (VirusTotal, AbuseIPDB, Google Safe Browsing) to produce an explainable 0–100 composite risk score.
+
+To eliminate evidence tampering in forensic investigations, Mailforensic AI anchors threat fingerprints directly onto the high-speed **Monad Testnet (Chain ID: 10143)**. Using the `EmailThreatRegistry` smart contract, each detected threat and forensic report hash is permanently logged, establishing a tamper-proof chain of custody and enabling decentralized cross-organization threat verification.
 
 ## Architecture
 
@@ -39,8 +43,8 @@ Flask, WebSockets (Flask-SocketIO) app (handlers: api, dashboard, email, forensi
 ### 1. Clone
 
 ```bash
-git clone https://github.com/PraveenTiwari/mailforensic-ai.git
-cd mailforensic-ai
+git clone https://github.com/Tiwari-Praveen-Codes/MailForensic-AI.git
+cd MailForensic-AI
 ```
 
 ### 2. Install dependencies
@@ -111,7 +115,7 @@ Defined in `render.yaml` (web service `ai-email-forensics`) with `autoDeploy` en
 | **Live Platform** | [sih26106-email-forensics.onrender.com](https://sih26106-email-forensics.onrender.com/dashboard) |
 | **Training Datasets** | [Google Drive Folder](https://drive.google.com/drive/folders/1MqyAdNHZFGVQzfDx5VwszbqbiEgm-Wg0?usp=drive_link) |
 | **Colab Training Notebook** | [Open in Colab](https://colab.research.google.com/drive/1Rqz3TkPnmXebt8jz39oWvjM6Q-P4J-T1?usp=sharing) |
-| **GitHub Repository** | [github.com/PraveenTiwari/mailforensic-ai](https://github.com/PraveenTiwari/mailforensic-ai) |
+| **GitHub Repository** | [github.com/Tiwari-Praveen-Codes/MailForensic-AI](https://github.com/Tiwari-Praveen-Codes/MailForensic-AI) |
 
 ---
 
@@ -344,8 +348,8 @@ Visit **[sih26106-email-forensics.onrender.com](https://sih26106-email-forensics
 
 ```bash
 # Clone the repo
-git clone https://github.com/PraveenTiwari/mailforensic-ai.git
-cd mailforensic-ai
+git clone https://github.com/Tiwari-Praveen-Codes/MailForensic-AI.git
+cd MailForensic-AI
 
 # Install dependencies
 pip install -r requirements.txt
@@ -530,7 +534,7 @@ This project was developed for **Smart India Hackathon 2026** (SIH26106). For ac
 <p align="center">
  <b>Built for SIH 2026</b><br>
  <a href="https://sih26106-email-forensics.onrender.com/dashboard">Live Demo</a> •
- <a href="https://github.com/PraveenTiwari/mailforensic-ai">GitHub</a> •
+ <a href="https://github.com/Tiwari-Praveen-Codes/MailForensic-AI">GitHub</a> •
  <a href="https://colab.research.google.com/drive/1Rqz3TkPnmXebt8jz39oWvjM6Q-P4J-T1">Colab</a>
 </p>
 
