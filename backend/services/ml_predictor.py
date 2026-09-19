@@ -1,5 +1,5 @@
 """
-ML Prediction Service — SIH26106 Trained Models
+ML Prediction Service — Trained Ensemble Models
 Loads XGBoost + LightGBM + DistilBERT ensemble from Colab training.
 60% BERT + 20% XGBoost + 20% LightGBM weighted ensemble.
 """

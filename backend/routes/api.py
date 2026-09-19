@@ -55,7 +55,7 @@ def geo_threats():
 def api_geo_lookup():
     """
     On-demand real-time deep investigation endpoint for any IP, domain, or host.
-    Used for live audience/judge tests during SIH presentations.
+    Used for live audience tests and investigation.
     """
     target = ''
     if request.method == 'POST':
@@ -731,7 +731,7 @@ def get_soc_playbook():
 
 
 # =====================================================================
-# Monad Blockchain Threat Ledger Endpoints (SIH26106 - AICTE PS-106)
+# Monad Blockchain Threat Ledger Endpoints
 # =====================================================================
 
 @api_bp.route('/blockchain/specs')

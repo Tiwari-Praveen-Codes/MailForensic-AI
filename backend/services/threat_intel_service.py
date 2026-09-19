@@ -320,7 +320,7 @@ class ThreatIntelService:
         # Live RDAP Bootstrap Query per RFC 7480 / RFC 9083 / RFC 9224
         rdap_headers = {
             "Accept": "application/rdap+json, application/json",
-            "User-Agent": "MailForensic-AI/2.0 (SIH-2026; Cybersecurity-Forensics)"
+            "User-Agent": "MailForensic-AI/2.0 (Cybersecurity-Forensics)"
         }
         try:
             with httpx.Client(follow_redirects=True, timeout=4.0) as client:
@@ -428,7 +428,7 @@ class ThreatIntelService:
         # Live RDAP IP query via rdap.org bootstrap
         rdap_headers = {
             "Accept": "application/rdap+json, application/json",
-            "User-Agent": "MailForensic-AI/2.0 (SIH-2026; Cybersecurity-Forensics)"
+            "User-Agent": "MailForensic-AI/2.0 (Cybersecurity-Forensics)"
         }
         try:
             with httpx.Client(follow_redirects=True, timeout=4.0) as client:

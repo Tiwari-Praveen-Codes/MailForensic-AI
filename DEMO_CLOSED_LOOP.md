@@ -1,4 +1,4 @@
-# 🎯 SIH Demo — The Closed Loop: QR Phish → Flag → Click → Auto-Close
+# 🎯 Live Forensic Demo — The Closed Loop: QR Phish → Flag → Click → Auto-Close
 
 **One-line pitch:** *"We don't just detect the phish — we guard the employee after they click."*
 

@@ -1,6 +1,6 @@
 # MailForensic AI - Forensic Demo Samples (.EML)
 
-This directory contains standardized, RFC 5322-compliant `.eml` test vectors crafted for live demonstration and forensic evaluation at Smart India Hackathon (SIH) 2026.
+This directory contains standardized, RFC 5322-compliant `.eml` test vectors crafted for live demonstration, threat simulation, and forensic evaluation.
 
 ---
 

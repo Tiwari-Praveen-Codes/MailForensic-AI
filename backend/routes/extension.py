@@ -2,7 +2,7 @@
 Browser extension API routes.
 
 Ported from ai-threat-detection-security-ops (Group B consolidation) and
-adapted to the SIH email-forensics platform:
+adapted to the enterprise email-forensics platform:
 - POST /check-url          → deep scan a URL (VirusTotal/SafeBrowsing/RDAP),
                              log to ThreatLog, auto-enroll threats in monitoring
 - GET  /api/recent_threats → recent ThreatLog entries for extension cache sync

@@ -103,8 +103,7 @@ Defined in `render.yaml` (web service `ai-email-forensics`) with `autoDeploy` en
 
 ---
 
-> **SIH26106** — Smart India Hackathon 2026 | AICTE Problem Statement
-> [Live Demo](https://sih26106-email-forensics.onrender.com/dashboard)
+> **Enterprise Cybersecurity Edition** — AI Email Forensics & Monad Blockchain Ledger
 
 ---
 
@@ -112,9 +111,6 @@ Defined in `render.yaml` (web service `ai-email-forensics`) with `autoDeploy` en
 
 | Resource | Link |
 |----------|------|
-| **Live Platform** | [sih26106-email-forensics.onrender.com](https://sih26106-email-forensics.onrender.com/dashboard) |
-| **Training Datasets** | [Google Drive Folder](https://drive.google.com/drive/folders/1MqyAdNHZFGVQzfDx5VwszbqbiEgm-Wg0?usp=drive_link) |
-| **Colab Training Notebook** | [Open in Colab](https://colab.research.google.com/drive/1Rqz3TkPnmXebt8jz39oWvjM6Q-P4J-T1?usp=sharing) |
 | **GitHub Repository** | [github.com/Tiwari-Praveen-Codes/MailForensic-AI](https://github.com/Tiwari-Praveen-Codes/MailForensic-AI) |
 
 ---
@@ -331,9 +327,9 @@ The Colab notebook includes fixes for issues found in earlier notebook versions:
 
 ## Quick Start
 
-### Option 1: Live Demo (Already Deployed)
+### Option 1: Live Demo
 
-Visit **[sih26106-email-forensics.onrender.com](https://sih26106-email-forensics.onrender.com/dashboard)** — no setup needed.
+Visit your deployed Render dashboard or run locally.
 
 ### Option 2: Train Models (Google Colab)
 
@@ -377,7 +373,7 @@ docker compose up --build
 
 ```bash
 # Classify email text
-curl -X POST https://sih26106-email-forensics.onrender.com/email/api/scan/text \
+curl -X POST http://localhost:5000/email/api/scan/text \
   -H "Content-Type: application/json" \
   -d '{"text": "Dear user, your account has been suspended. Click here to verify."}'
 
@@ -464,7 +460,7 @@ mailforensic-ai/
 │   ├── forensic_report.html          # Forensic drill-down view
 │   └── threat_intel.html             # Chart.js trend analytics
 ├── training/
-│   ├── SIH26106_Email_Threat_Detection_Training.ipynb  # THE notebook
+│   ├── Email_Threat_Detection_Training.ipynb        # THE notebook
 │   └── datasets/                     # Local copy of 7 training datasets
 ├── tests/                            # 95 unit tests
 │   ├── test_ml_pipeline.py           # ML pipeline tests (32)
@@ -525,17 +521,10 @@ All tests use synthetic data and mocks — no network, no trained models, no dat
 
 ---
 
-## License
-
-This project was developed for **Smart India Hackathon 2026** (SIH26106). For academic and demonstration purposes.
-
----
-
 <p align="center">
- <b>Built for SIH 2026</b><br>
- <a href="https://sih26106-email-forensics.onrender.com/dashboard">Live Demo</a> •
- <a href="https://github.com/Tiwari-Praveen-Codes/MailForensic-AI">GitHub</a> •
- <a href="https://colab.research.google.com/drive/1Rqz3TkPnmXebt8jz39oWvjM6Q-P4J-T1">Colab</a>
+ <b>Mailforensic AI</b><br>
+ <a href="https://github.com/Tiwari-Praveen-Codes/MailForensic-AI">GitHub Repository</a> •
+ <a href="https://colab.research.google.com/drive/1Rqz3TkPnmXebt8jz39oWvjM6Q-P4J-T1">Colab Training</a>
 </p>
 
 ---

@@ -1,6 +1,6 @@
 
 # ============================================================
-#  SIH26106 - Email Threat Classifier Inference Module
+#  MailForensic AI - Email Threat Classifier Inference Module
 #  Drop this file into: backend/ml/email_classifier.py
 # ============================================================
 import joblib, json, re, torch

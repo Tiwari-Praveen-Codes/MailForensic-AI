@@ -225,7 +225,7 @@ a:hover {
 
 .sidebar.collapsed .brand-text,
 .sidebar.collapsed .nav-text,
-.sidebar.collapsed .badge-sih {
+.sidebar.collapsed .badge-enterprise {
   display: none !important;
 }
 

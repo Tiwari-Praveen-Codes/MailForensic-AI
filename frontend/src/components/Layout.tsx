@@ -39,8 +39,8 @@ export default function Layout() {
               <span className="fw-bold text-light lh-1" style={{ fontSize: '0.95rem' }}>
                 MailForensic AI
               </span>
-              <small className="text-muted font-monospace mt-1 badge-sih" style={{ fontSize: '0.62rem', letterSpacing: '0.05em' }}>
-                SIH 2026 · PS-106
+              <small className="text-muted font-monospace mt-1 badge-enterprise" style={{ fontSize: '0.62rem', letterSpacing: '0.05em' }}>
+                ENTERPRISE EDITION
               </small>
             </div>
           </Link>

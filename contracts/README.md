@@ -1,6 +1,6 @@
 # Monad Testnet Blockchain Integration & Deployment Guide
 
-This project includes on-chain forensic threat logging and verification on **Monad Testnet** (Chain ID: `10143`), fulfilling the **AICTE PS-106: Blockchain & Cybersecurity** track requirement for Smart India Hackathon.
+This project includes on-chain forensic threat logging and verification on **Monad Testnet** (Chain ID: `10143`), providing decentralized, immutable chain-of-custody for enterprise email threat intelligence.
 
 ---
 

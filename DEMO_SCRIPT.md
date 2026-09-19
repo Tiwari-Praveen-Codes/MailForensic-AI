@@ -1,5 +1,5 @@
-# 🏆 SIH 2026 Pitch & Demonstration Master Script
-## MailForensic AI — AI-Powered Email Threat Intelligence & Forensic Platform (PS-106)
+# 🏆 Executive Demonstration & Technical Pitch Master Script
+## MailForensic AI — AI-Powered Email Threat Intelligence & Forensic Platform
 
 ---
 
@@ -7,12 +7,12 @@
 
 | Segment | Duration | Target Screen | Core Message / Wow Factor |
 | :--- | :--- | :--- | :--- |
-| **1. The Problem & Hook** | **30s** | [Dashboard](file:///e:/wkspc/01_Active/Hackathons/SIH/sih26106/ai-email-forensics/dashboard) (`/dashboard`) | Standard filters fail on False Positives (legit banks) and False Negatives (conversational BEC). |
-| **2. Anti-False-Positive Shield (FPS)** | **60s** | [Email Scanner](file:///e:/wkspc/01_Active/Hackathons/SIH/sih26106/ai-email-forensics/frontend/src/pages/EmailScannerPage.tsx) (`/email/scan`) | Demonstrates -35pt Bayesian discount on verified Bank of America statement. |
-| **3. Anti-False-Negative Hunter (FNE)** | **60s** | [Email Scanner](file:///e:/wkspc/01_Active/Hackathons/SIH/sih26106/ai-email-forensics/frontend/src/pages/EmailScannerPage.tsx) (`/email/scan`) | Catches zero-day CEO wire fraud with zero links and zero attachments. |
-| **4. Raw .EML Header & Hop Forensics** | **60s** | [Forensic .EML](file:///e:/wkspc/01_Active/Hackathons/SIH/sih26106/ai-email-forensics/frontend/src/pages/ForensicEmlPage.tsx) (`/forensic/scan`) | 1-Click test of Multi-Hop Tor relay, 60 FPS GPU Leaflet route map & ISO 27037 PDF evidence. |
-| **5. Live Telemetry & Campaign Intel** | **30s** | [Threat Map](file:///e:/wkspc/01_Active/Hackathons/SIH/sih26106/ai-email-forensics/frontend/src/pages/ThreatMapPage.tsx) (`/threat-map`) | Real-time geospatial threat tracking & MITRE ATT&CK campaign clustering. |
-| **Total Target Pitch** | **3m 30s** | — | **Leaves 1m 30s for Jury Q&A!** |
+| **1. The Problem & Hook** | **30s** | Dashboard (`/dashboard`) | Standard filters fail on False Positives (legit banks) and False Negatives (conversational BEC). |
+| **2. Anti-False-Positive Shield (FPS)** | **60s** | Email Scanner (`/email/scan`) | Demonstrates -35pt Bayesian discount on verified Bank of America statement. |
+| **3. Anti-False-Negative Hunter (FNE)** | **60s** | Email Scanner (`/email/scan`) | Catches zero-day CEO wire fraud with zero links and zero attachments. |
+| **4. Raw .EML Header & Hop Forensics** | **60s** | Forensic .EML (`/forensic/scan`) | 1-Click test of Multi-Hop Tor relay, 60 FPS GPU Leaflet route map & ISO 27037 PDF evidence. |
+| **5. Live Telemetry & Campaign Intel** | **30s** | Threat Map (`/threat-map`) | Real-time geospatial threat tracking & MITRE ATT&CK campaign clustering. |
+| **Total Target Pitch** | **3m 30s** | — | **Leaves 1m 30s for Technical Q&A!** |
 
 ---
 
@@ -124,6 +124,6 @@
 
 ## 📂 Quick Reference to Demo Assets
 
-- **Preset `.EML` Files**: Stored locally in [`demo_eml_samples/`](file:///e:/wkspc/01_Active/Hackathons/SIH/sih26106/ai-email-forensics/demo_eml_samples)
-- **Live Deployed URL**: [https://sih26106-email-forensics.onrender.com](https://sih26106-email-forensics.onrender.com)
+- **Preset `.EML` Files**: Stored locally in `demo_eml_samples/`
+- **Live Deployed URL**: Hosted on Render
 - **Automated Tests**: Run with `python -m pytest tests/` (101 tests, 100% pass)

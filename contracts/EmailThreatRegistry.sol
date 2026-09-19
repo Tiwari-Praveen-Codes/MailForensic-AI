@@ -5,7 +5,6 @@ pragma solidity ^0.8.20;
  * @title EmailThreatRegistry
  * @author Praveen Tiwari
  * @dev Immutable threat intelligence and forensic evidence ledger on Monad Testnet.
- * Designed for SIH26106 (AICTE PS-106: Blockchain & Cybersecurity).
  * High-throughput, low-latency logging of forensic hashes, risk scores, and threat indicators.
  */
 contract EmailThreatRegistry {

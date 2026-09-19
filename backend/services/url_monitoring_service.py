@@ -2,7 +2,7 @@
 URL Monitoring Service - Continuous monitoring of flagged URLs.
 
 Ported from ai-threat-detection-security-ops (Group B consolidation) and
-adapted to the SIH email-forensics platform:
+adapted to the enterprise email-forensics platform:
 - Uses unified_url_check (VirusTotal / SafeBrowsing / RDAP) for re-scans
 - Verdict mapping from threat_score -> Malicious / Suspicious / Safe
 - Updates ThreatLog to "Resolved" when a monitored URL goes safe

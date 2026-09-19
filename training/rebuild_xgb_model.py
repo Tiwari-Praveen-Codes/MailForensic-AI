@@ -3,7 +3,7 @@ Rebuild xgb_email_threat_model.pkl — the committed pickle is corrupt
 ("XGBoostError: input stream corrupted"), which made the ML ensemble return
 'unknown' for every scan. This script retrains the XGBoost leg of the ensemble
 with the same hyperparameters and dataset pipeline as the Colab training
-notebook (training/SIH26106_Email_Threat_Detection_Training.ipynb), but cleans
+notebook (training/Email_Threat_Detection_Training.ipynb), but cleans
 text with the backend's own _clean_text/_extract_manual_features so training
 features exactly match inference features.
 

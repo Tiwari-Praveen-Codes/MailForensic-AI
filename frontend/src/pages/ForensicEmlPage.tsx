@@ -341,7 +341,7 @@ export default function ForensicEmlPage() {
                   fontSize: '0.72rem',
                 }}
               >
-                SIH 2026 JURY BENCHMARK
+                ENTERPRISE SECURITY BENCHMARK
               </span>
             </div>
 

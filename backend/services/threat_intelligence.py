@@ -96,7 +96,7 @@ async def check_rdap(domain: str) -> Dict:
     try:
         rdap_headers = {
             'Accept': 'application/rdap+json, application/json',
-            'User-Agent': 'MailForensic-AI/2.0 (SIH-2026; Cybersecurity-Forensics)'
+            'User-Agent': 'MailForensic-AI/2.0 (Cybersecurity-Forensics)'
         }
         async with httpx.AsyncClient(follow_redirects=True, timeout=3.5) as client:
             resp = await client.get(f'https://rdap.org/domain/{domain}', headers=rdap_headers)
