@@ -535,6 +535,6 @@ All tests use synthetic data and mocks — no network, no trained models, no dat
 | Resource | Link |
 |---|---|
 | 📄 Linkedin post |(https://lnkd.in/p/d3mQnwdR)) |
-| 🎥 Demo Video | [Watch Demo]((https://drive.google.com/file/d/1O7IgclkljpMTkjc9KnGEsphQCz9P_4kW/view?usp=drive_link)) |
+| 🎥 Demo Video | https://drive.google.com/file/d/1O7IgclkljpMTkjc9KnGEsphQCz9P_4kW/view?usp=drive_link |
 | 📊 Ad video | [View video](https://drive.google.com/file/d/1YhKCzWGrvEgz-POvHjn5YqD4ai0FFrUX/view?usp=drive_link)) |
 
