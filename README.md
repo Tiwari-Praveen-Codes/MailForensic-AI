@@ -519,7 +519,8 @@ All tests use synthetic data and mocks — no network, no trained models, no dat
 | Member | Role | Track |
 |--------|------|-------|
 | **Praveen Tiwari** | Project Lead, Blockchain & AI Architecture | Full-Stack, Monad Integration, ML Pipeline, Deployment |
-
+| **Vaishnavi Walve** | Research and Presentation | Feability , Market Research , Impact |
+| **Shruti Tambe** | Documentation, Video Generation , Socials | Linkedin, Architechture  |
 ---
 
 <p align="center">
@@ -529,5 +530,11 @@ All tests use synthetic data and mocks — no network, no trained models, no dat
 </p>
 
 ---
+## 📂 Project Resources
 
+| Resource | Link |
+|---|---|
+| 📄 Linkedin post | [View Post]((https://lnkd.in/p/d3mQnwdR)) |
+| 🎥 Demo Video | [Watch Demo]((https://drive.google.com/file/d/1O7IgclkljpMTkjc9KnGEsphQCz9P_4kW/view?usp=drive_link)) |
+| 📊 Ad video | [View video](https://drive.google.com/file/d/1YhKCzWGrvEgz-POvHjn5YqD4ai0FFrUX/view?usp=drive_link)) |
 
