@@ -1,0 +1,55 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+venv/
+.env
+
+# Models — only exclude DistilBERT (268MB) and images
+# .pkl files under ml/models/ are small (~5MB total) and tracked for deployment
+backend/ml/models/distilbert_email_threat/
+backend/ml/models/*.png
+
+# Data (too large for git)
+data/
+Kaggle_datasets/
+*.zip
+
+# Database
+*.db
+instance/
+
+# Credentials
+backend/credentials/
+token.pickle
+credentials.json
+# Allow tracking of required project JSON files
+!frontend/package.json
+!frontend/package-lock.json
+!frontend/tsconfig.json
+!backend/ml/models/*.json
+
+# Analysis logs
+
+# Analysis logs
+backend/logs/
+
+# Uploads & Reports
+uploads/
+reports/
+
+# Logs
+*.log
+
+# IDE
+.vscode/
+.idea/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# React frontend
+frontend/node_modules/
+frontend/dist/
+
